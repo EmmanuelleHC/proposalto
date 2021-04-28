@@ -27,6 +27,7 @@ Route::group(['middleware' => 'jwt.verify'], function () {
  Route::resource('role', 'Master\RoleController');
  Route::resource('resp', 'Master\RespController');
  Route::resource('menu_detail', 'Master\MenuDetailController');
+ Route::resource('user', 'Master\AuthController', ['only' => ['index', 'show', 'update', 'destroy']]);
 
  Route::post('register', 'Master\AuthController@register');
  Route::get('userProfile', 'Master\AuthController@userProfile');

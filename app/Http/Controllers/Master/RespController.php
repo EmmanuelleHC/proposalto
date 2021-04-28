@@ -134,6 +134,7 @@ class RespController extends BaseController
         $resp=SysResp::find($id);
         if($resp)
         {
+        	$resp->delete();
 	        return response()->json([
 	            'message' => 'Resp successfully deleted'
 	        ], 200);
