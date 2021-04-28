@@ -53,7 +53,7 @@ class AuthController extends BaseController
             'username' => 'required|string|between:2,100',
             'email' => 'required|string|email|max:100|unique:users',
             'password' => 'required|string|min:6',
-            'active_flag' => 'required',
+            'active_flag' => 'required|in:Y,N',
             'role_id'=>'required|exists:sys_role,id',
 
         ]);

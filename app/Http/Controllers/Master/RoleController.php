@@ -29,7 +29,7 @@ class RoleController extends BaseController
         */
     public function store(Request $request)
     {
-          $validator = Validator::make($request->all(), [
+        $validator = Validator::make($request->all(), [
             'role_name' => 'required|string|between:2,100'
 
         ]);
@@ -78,6 +78,14 @@ class RoleController extends BaseController
         */
     public function update(Request $request,$id)
     {
+        $validator = Validator::make($request->all(), [
+            'role_name' => 'required|string|between:2,100'
+
+        ]);
+
+        if($validator->fails()){
+            return response()->json($validator->errors()->toJson(), 400);
+        }
         $role_name=$request->role_name;
         $role=SysRole::find($id);
         if($role)

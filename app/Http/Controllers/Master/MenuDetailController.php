@@ -1,16 +1,16 @@
 <?php
 
 namespace App\Http\Controllers\Master;
-use App\SysMenu;
+use App\SysMenuDetail;
 use Illuminate\Http\Request;
 use Validator;
 
 use Illuminate\Routing\Controller as BaseController;
-class MenuController extends BaseController
+class MenuDetailController extends BaseController
 {
     public function index()
     {
-        return SysMenu::all();
+        return SysMenuDetail::all();
 
     }
 
@@ -24,26 +24,30 @@ class MenuController extends BaseController
     public function store(Request $request)
     {
           $validator = Validator::make($request->all(), [
-            'menu_name' => 'required|string|between:2,100',
-            'menu_desc' => 'required|string|between:2,100',
+            'menu_id' => 'required|exists:sys_menu,id',
+            'seq' => 'required',
+            'prompt' => 'required|string',
+            'description' => 'required|string',
             'active_flag' => 'required|in:Y,N',
-            'is_detail' => 'required|string',
 
 
         ]);
+
+          
         if($validator->fails()){
             return response()->json($validator->errors()->toJson(), 400);
         }
 
-        $menu = new SysMenu();
-        $menu->menu_name = $request->menu_name;
-        $menu->menu_desc = $request->menu_desc;
-        $menu->active_flag = $request->active_flag;
-        $menu->is_detail = $request->is_detail;
-        $menu->save();
+        $menu_detail = new SysMenu();
+        $menu_detail->menu_id = $request->menu_id;
+        $menu_detail->seq = $request->seq;
+        $menu_detail->prompt = $request->prompt;
+        $menu_detail->description = $request->description;
+        $menu_detail->active_flag = $request->active_flag;
+        $menu_detail->save();
         return response()->json([
-            'message' => 'Menu successfully stored',
-            'menu' => $menu
+            'message' => 'Menu Detail successfully stored',
+            'menu_detail' => $menu_detail
         ], 201);
     }
 
@@ -55,15 +59,15 @@ class MenuController extends BaseController
         */
     public function show($id)
     {
-         $menu = SysMenu::find($id);
-         if($menu)
+         $menu_detail = SysMenuDetail::find($id);
+         if($menu_detail)
          {
          	return response()->json([
-            'menu' => $menu
+            'menu_detail' => $menu_detail
         	], 200);
          }else{
          	return response()->json([
-            'message' => 'Menu not exists'
+            'message' => 'Menu Detail not exists'
         ], 201);
          }
 
@@ -78,32 +82,36 @@ class MenuController extends BaseController
         */
     public function update(Request $request,$id)
     {
-        $validator = Validator::make($request->all(), [
-            'menu_name' => 'required|string|between:2,100',
-            'menu_desc' => 'required|string|between:2,100',
+         $validator = Validator::make($request->all(), [
+         	'menu_id' => 'required|exists:sys_menu,id',
+            'seq' => 'required',
+            'prompt' => 'required|string',
+            'description' => 'required|string',
             'active_flag' => 'required|in:Y,N',
-            'is_detail' => 'required|in:Y,N',
 
 
         ]);
+
+          
         if($validator->fails()){
             return response()->json($validator->errors()->toJson(), 400);
         }
-        $menu=SysMenu::find($id);
-        if($menu)
+        $menu_detail=SysMenuDetail::find($id);
+        if($menu_detail)
         {
-        	$menu->menu_name = $request->menu_name;
-	        $menu->menu_desc = $request->menu_desc;
-	        $menu->active_flag = $request->active_flag;
-	        $menu->is_detail = $request->is_detail;
-        	$menu->save();
+        	$menu_detail->menu_id = $request->menu_id;
+        	$menu_detail->seq = $request->seq;
+	        $menu_detail->prompt = $request->prompt;
+	        $menu_detail->description = $request->description;
+	        $menu_detail->active_flag = $request->active_flag;
+        	$menu_detail->save();
         	return response()->json([
-	            'message' => 'Menu successfully updated'
+	            'message' => 'Menu Detail successfully updated'
 	        ], 200);
 
         }else{
         	return response()->json([
-	            'message' => 'Menu fail updated'
+	            'message' => 'Menu Detail fail updated'
 	        ], 200);
         }
         
@@ -117,15 +125,15 @@ class MenuController extends BaseController
         */
     public function destroy($id)
     {
-        $menu=SysMenu::find($id);
+        $menu_detail=SysMenuDetail::find($id);
         if($menu)
         {
 	        return response()->json([
-	            'message' => 'Menu successfully deleted'
+	            'message' => 'Menu Detail successfully deleted'
 	        ], 200);
         }else{
         	return response()->json([
-	            'message' => 'Menu fail deleted'
+	            'message' => 'Menu Detail fail deleted'
 	        ], 400);
         }
     }

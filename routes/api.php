@@ -19,11 +19,15 @@ use Illuminate\Support\Facades\Route;
 // });
 
 Route::post('login', [ 'as' => 'login', 'uses' => 'Master\AuthController@login']);
+Route::post('logout', [ 'as' => 'logout', 'uses' => 'Master\AuthController@logout']);
 
 Route::group(['middleware' => 'jwt.verify'], function () {
 
- 
+ Route::resource('menu', 'Master\MenuController');
  Route::resource('role', 'Master\RoleController');
+ Route::resource('resp', 'Master\RespController');
+ Route::resource('menu_detail', 'Master\MenuDetailController');
+
  Route::post('register', 'Master\AuthController@register');
  Route::get('userProfile', 'Master\AuthController@userProfile');
 
