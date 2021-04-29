@@ -20,17 +20,21 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('login', [ 'as' => 'login', 'uses' => 'Master\AuthController@login']);
 Route::post('logout', [ 'as' => 'logout', 'uses' => 'Master\AuthController@logout']);
+Route::resource('store', 'Master\StoreController');
 
 Route::group(['middleware' => 'jwt.verify'], function () {
  Route::resource('fee_group', 'Master\FeeGroupController');
- Route::resource('fee_region', 'Master\FeeRegionController');
  Route::resource('tipe_to', 'Master\TipeTOController');
  Route::resource('period', 'Master\PeriodController');
- Route::resource('personel', 'Master\PersonelController');
  Route::resource('branch', 'Master\BranchController');
  Route::resource('menu', 'Master\MenuController');
  Route::resource('role', 'Master\RoleController');
  Route::resource('resp', 'Master\RespController');
+ Route::resource('personel', 'Master\PersonelController', ['only' => ['index', 'show','store','destroy']]);
+ Route::post('personel_update','Master\PersonelController@personel_update');
+ Route::resource('fee_region', 'Master\FeeRegionController', ['only' => ['index', 'show','store','destroy']]);
+ Route::post('fee_region_update','Master\FeeRegionController@fee_region_update');
+
  Route::resource('menu_detail', 'Master\MenuDetailController');
  Route::resource('user', 'Master\AuthController', ['only' => ['index', 'show', 'update', 'destroy']]);
  Route::post('register', 'Master\AuthController@register');

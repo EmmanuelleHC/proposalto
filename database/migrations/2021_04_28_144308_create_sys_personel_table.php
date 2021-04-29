@@ -22,8 +22,8 @@ class CreateSysPersonelTable extends Migration
             $table->float('min_spd');
             $table->float('max_spd');
             $table->integer('total_personel');
-            $table->float('total_pramu');
-            $table->float('total_kasir');
+            $table->integer('total_pramu');
+            $table->integer('total_kasir');
             $table->timestamps();
         });
     }
