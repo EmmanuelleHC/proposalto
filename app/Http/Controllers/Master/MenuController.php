@@ -120,6 +120,7 @@ class MenuController extends BaseController
         $menu=SysMenu::find($id);
         if($menu)
         {
+        	$menu->delete();
 	        return response()->json([
 	            'message' => 'Menu successfully deleted'
 	        ], 200);

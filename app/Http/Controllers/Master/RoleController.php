@@ -115,6 +115,8 @@ class RoleController extends BaseController
         $role=SysRole::find($id);
         if($role)
         {
+            $role->delete();
+
 	        return response()->json([
 	            'message' => 'Role successfully deleted'
 	        ], 200);

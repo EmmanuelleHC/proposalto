@@ -38,7 +38,7 @@ class MenuDetailController extends BaseController
             return response()->json($validator->errors()->toJson(), 400);
         }
 
-        $menu_detail = new SysMenu();
+        $menu_detail = new SysMenuDetail();
         $menu_detail->menu_id = $request->menu_id;
         $menu_detail->seq = $request->seq;
         $menu_detail->prompt = $request->prompt;
@@ -126,8 +126,9 @@ class MenuDetailController extends BaseController
     public function destroy($id)
     {
         $menu_detail=SysMenuDetail::find($id);
-        if($menu)
+        if($menu_detail)
         {
+        	$menu_detail->delete();
 	        return response()->json([
 	            'message' => 'Menu Detail successfully deleted'
 	        ], 200);
