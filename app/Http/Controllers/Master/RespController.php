@@ -25,7 +25,6 @@ class RespController extends BaseController
     {
           $validator = Validator::make($request->all(), [
             'role_id' => 'required|exists:sys_role,id',
-            'menu_id' => 'required|exists:sys_menu,id',
             'resp_name' => 'required|string',
             'resp_desc' => 'required|string',
             'active_flag' => 'required|in:Y,N',
@@ -41,7 +40,6 @@ class RespController extends BaseController
 
         $resp = new SysResp();
         $resp->role_id = $request->role_id;
-        $resp->menu_id = $request->menu_desc;
         $resp->resp_name = $request->resp_name;
         $resp->resp_desc = $request->resp_desc;
         $resp->active_flag = $request->active_flag;
@@ -87,7 +85,6 @@ class RespController extends BaseController
     	
          $validator = Validator::make($request->all(), [
             'role_id' => 'required|exists:sys_role,id',
-            'menu_id' => 'required|exists:sys_menu,id',
             'resp_name' => 'required|string',
             'resp_desc' => 'required|string',
             'active_flag' => 'required|in:Y,N',
@@ -104,7 +101,6 @@ class RespController extends BaseController
         if($resp)
         {
         	$resp->role_id = $request->role_id;
-	        $resp->menu_id = $request->menu_id;
 	        $resp->resp_name = $request->resp_name;
 	        $resp->resp_desc = $request->resp_desc;
 	       	$resp->active_flag = $request->active_flag;

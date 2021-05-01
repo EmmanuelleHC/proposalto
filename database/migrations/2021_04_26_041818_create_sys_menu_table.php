@@ -17,10 +17,16 @@ class CreateSysMenuTable extends Migration
             $table->id();
             $table->string('menu_name');
             $table->string('menu_desc');
+            $table->unsignedBigInteger('role_id');
             $table->string('active_flag');
             $table->string('is_detail');
             $table->rememberToken();
             $table->timestamps();
+        });
+        Schema::table('sys_menu', function($table) {
+            $table->foreign('role_id')->references('id')->on('sys_role');
+            
+
         });
     }
     /**
