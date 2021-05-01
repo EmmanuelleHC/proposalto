@@ -16,7 +16,6 @@ class CreateSysRespTable extends Migration
         Schema::create('sys_resp', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('role_id');
-            $table->unsignedBigInteger('menu_id');
             $table->string('resp_name');
             $table->string('resp_desc');
             $table->string('active_flag');
@@ -25,7 +24,6 @@ class CreateSysRespTable extends Migration
         });
         Schema::table('sys_resp', function($table) {
             $table->foreign('role_id')->references('id')->on('sys_role');
-            $table->foreign('menu_id')->references('id')->on('sys_menu');
             
 
         });

@@ -26,6 +26,7 @@ class MenuController extends BaseController
           $validator = Validator::make($request->all(), [
             'menu_name' => 'required|string|between:2,100',
             'menu_desc' => 'required|string|between:2,100',
+            'role_id' => 'required|exists:sys_role,id',
             'active_flag' => 'required|in:Y,N',
             'is_detail' => 'required|string',
 
@@ -38,6 +39,7 @@ class MenuController extends BaseController
         $menu = new SysMenu();
         $menu->menu_name = $request->menu_name;
         $menu->menu_desc = $request->menu_desc;
+        $menu->role_id = $request->role_id;
         $menu->active_flag = $request->active_flag;
         $menu->is_detail = $request->is_detail;
         $menu->save();
@@ -81,6 +83,7 @@ class MenuController extends BaseController
         $validator = Validator::make($request->all(), [
             'menu_name' => 'required|string|between:2,100',
             'menu_desc' => 'required|string|between:2,100',
+            'role_id' => 'required|exists:sys_role,id',
             'active_flag' => 'required|in:Y,N',
             'is_detail' => 'required|in:Y,N',
 
@@ -94,6 +97,7 @@ class MenuController extends BaseController
         {
         	$menu->menu_name = $request->menu_name;
 	        $menu->menu_desc = $request->menu_desc;
+            $menu->role_id = $request->role_id;
 	        $menu->active_flag = $request->active_flag;
 	        $menu->is_detail = $request->is_detail;
         	$menu->save();
